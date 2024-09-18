@@ -4,7 +4,7 @@
     border-radius: 5px;
     font-size: 12px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    min-height: 110px;
+    min-height: 140px;
     row-gap: 0;
 }
 
@@ -29,24 +29,27 @@
     align-items: center;
 }
 
-.box{
+.box {
     font-weight: 600;
     font-size: larger;
-    display: -webkit-box; 
-    -webkit-box-orient: vertical; 
-    overflow: hidden; 
-    text-overflow: ellipsis; 
-    -webkit-line-clamp: 2; 
-    line-clamp: 2;
+    display: flex;
+    column-gap: 10px; /* Apply flex gap */
 }
 
-.box p {
-    margin: 0;
-  }
+.box-text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2; 
+    line-clamp: 2;
+    flex: 1;
+}
+
 
 .cardId{
     color: rgb(164,164,166);
-    font-size: 13px;
+    font-size: 16px;
     font-weight: 500;
 }
 

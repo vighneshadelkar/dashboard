@@ -19,13 +19,6 @@
     gap: 10px;
   }
 
-  .dots{
-    width: 20px;
-    height: 20px;
-    transform: rotate(90deg);
-    cursor: pointer;
-  }
-
   .ticketHead{
     display: flex;
     justify-content: space-between;
@@ -39,11 +32,12 @@
   }
 
   .plus{
-    width: 20px;
-    height: 20px;
     cursor: pointer;
   }
-
+  
+  .dots{
+    cursor: pointer;
+  }
 
   @media (max-width: 768px ) {
     .ticketGroups {

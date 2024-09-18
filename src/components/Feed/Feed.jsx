@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState, useMemo } from "react";
 import { GroupingContext } from "../ContextApi/Context";
 import Card from "../Card/Card";
-import dots from "../Images/three.png";
-import plus from "../Images/plus.png";
+import dots from "../Images/3 dot menu.svg";
+import plus from "../Images/add.svg";
 import "./Feed.css";
 
 export default function Feed() {
@@ -80,17 +80,21 @@ export default function Feed() {
   );
 }
 
-const TicketGroup = React.memo(({ groupKey, tickets }) => (
+const TicketGroup = React.memo(({ groupKey, tickets, grouping }) => (
   <div className="ticketGroup">
     <div className="ticketHead">
-      <h4>{groupKey} {tickets.length}</h4>
+      <h4>
+        {groupKey} {tickets.length}
+      </h4>
       <div className="ticketImg">
         <img src={plus} className="plus" alt="pls" />
         <img src={dots} className="dots" alt="more" />
       </div>
     </div>
     <div className="ticketCards">
-      {tickets.map(ticket => <Card key={ticket.id} {...ticket} />)}
+      {tickets.map((ticket) => (
+        <Card key={ticket.id} {...ticket} />
+      ))}
     </div>
   </div>
 ));

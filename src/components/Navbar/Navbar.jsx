@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./Navbar.css";
 import { GroupingContext } from "../ContextApi/Context";
-import control from "../Images/control.png";
+import control from "../Images/Display.svg";
 
 export default function Navbar() {
   const { setGrouping } = useContext(GroupingContext);
@@ -17,7 +17,7 @@ export default function Navbar() {
       setGrouping(savedGrouping);
     }
   }, [setGrouping]);
-  
+
   function onPrirorty(val) {
     localStorage.setItem("userGrouping", val);
     setGrouping(val);
@@ -46,7 +46,7 @@ export default function Navbar() {
             </div>
             <div className="dropdown-item">
               <p>Grouping</p>
-              <button onClick={() => onPrirorty("status")}>Status</button>
+              <button onClick={() => onPrirorty("status")}>Status </button>
             </div>
           </div>
         )}
