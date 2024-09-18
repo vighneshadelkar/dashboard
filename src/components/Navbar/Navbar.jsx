@@ -23,18 +23,14 @@ export default function Navbar() {
         </button>
         {isOpen && (
           <div className="dropdown-menu">
-            <button
-              className="dropdown-item"
-              onClick={() => onPrirorty("user")}
-            >
-              Users
-            </button>
-            <button
-              className="dropdown-item"
-              onClick={() => onPrirorty("priority")}
-            >
-              Priority
-            </button>
+            <div className="dropdown-item">
+            <p>Grouping</p>
+              <button onClick={() => onPrirorty("user")}>Users</button>
+            </div>
+            <div className="dropdown-item">
+              <p>Grouping</p>
+              <button onClick={() => onPrirorty("priority")}>Priority</button>
+            </div>
           </div>
         )}
       </div>

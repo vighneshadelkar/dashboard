@@ -1,0 +1,30 @@
+.ticketGroups {
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    padding: 0px 0;
+  }
+  
+  .ticketGroup {
+    width: 400px; 
+    min-width: 100px;
+  }
+  
+  .ticketCards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .dots{
+    width: 20px;
+    height: 20px;
+    transform: rotate(90deg);
+    cursor: pointer;
+  }
+
+  .ticketHead{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }

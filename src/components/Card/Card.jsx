@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import "./Card.css";
 import userImg from "../Images/user.png";
 import { GroupingContext } from "../ContextApi/Context";
+import dots from "../Images/three.png"
 
 export default function Card(props) {
   const { grouping } = useContext(GroupingContext);
@@ -17,14 +18,16 @@ export default function Card(props) {
         </div>
         <div className="cardBody">
           <div className="box">
-            {grouping==="priority" ? (
+            {grouping === "priority" ? (
               <input type="checkbox" name="checkbox" id="checkbox" />
             ) : (
               <></>
             )}
-
             <p>{props.title}</p>
           </div>
+        </div>
+        <div className="cardBottom">
+        <img src={dots} className="dots" alt="more" />
           <div className="cardTag">{props.tag[0]}</div>
         </div>
       </div>

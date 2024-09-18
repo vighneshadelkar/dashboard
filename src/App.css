@@ -1,22 +1,4 @@
-/* App.css */
-.ticketGroups {
-    display: flex;
-    justify-content: flex-start;
-    gap: 20px;
-    padding: 0px 0;
-  }
-  
-  .ticketGroup {
-    width: 400px; /* Fixed width for each column */
-    min-width: 100px;
-  }
-  
-  .ticketCards {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
+
   main {
     padding: 80px;
     padding-top: 0px;
