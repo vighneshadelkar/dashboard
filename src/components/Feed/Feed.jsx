@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useMemo } from "react";
 import { GroupingContext } from "../ContextApi/Context";
 import Card from "../Card/Card";
-import dots from "../Images/three.png"
+import dots from "../Images/three.png";
+import plus from "../Images/plus.png";
 import "./Feed.css";
-import plus from "../Images/plus.png"
 
 export default function Feed() {
   const [tickets, setTickets] = useState([]);
@@ -24,7 +24,6 @@ export default function Feed() {
       const result = await fetch(
         "https://api.quicksell.co/v1/internal/frontend-assignment"
       );
-
       const data = await result.json();
 
       if (data) {
@@ -41,68 +40,57 @@ export default function Feed() {
   }, []);
 
   const groupTickets = (groupBy) => {
-    if (groupBy === "user") {
-      const userMap = users.reduce((map, user) => {
-        map[user.id] = user.name;
-        return map;
-      }, {});
+    const userMap = users.reduce((map, user) => {
+      map[user.id] = user.name;
+      return map;
+    }, {});
 
-      return tickets.reduce((grouped, ticket) => {
-        const userName = userMap[ticket.userId] || "Unknown User";
-        console.log(userName);
-        if (!grouped[userName]) {
-          grouped[userName] = [];
-        }
-        grouped[userName].push(ticket);
-        return grouped;
-      }, {});
-    } else {
-      return tickets.reduce((grouped, ticket) => {
-        const groupKey = ticket[groupBy] || 0;
-        if (!grouped[groupKey]) {
-          grouped[groupKey] = [];
-        }
-        grouped[groupKey].push(ticket);
-        return grouped;
-      }, {});
-    }
+    return tickets.reduce((grouped, ticket) => {
+      const groupKey =
+        groupBy === "user"
+          ? userMap[ticket.userId] || "Unknown User"
+          : ticket[groupBy] || 0;
+
+      if (!grouped[groupKey]) {
+        grouped[groupKey] = [];
+      }
+      grouped[groupKey].push(ticket);
+      return grouped;
+    }, {});
   };
 
-  const groupedTickets =
-    grouping === "user"
+  const groupedTickets = useMemo(() => {
+    return grouping === "user"
       ? groupTickets("user")
       : grouping === "priority"
       ? groupTickets("priority")
       : groupTickets("status");
+  }, [grouping, tickets, users]);
 
   return (
     <div className="ticketGroups">
-      {Object.keys(groupedTickets).map((groupKey) => {
-        const groupTitle = grouping === "user" ? groupKey : groupKey;
-
-        return (
-          <div key={groupKey} className="ticketGroup">
-            <div className="ticketHead">
-              <h4>
-                {grouping === "priority" ? pri[groupKey] : ""}
-                {grouping !== "priority" ? groupTitle : ""}{" "}
-                {groupedTickets[groupKey].length}
-              </h4>
-              <div className="ticketImg">
-                <img src={plus} className="plus" alt="pls" />
-              <img src={dots} className="dots" alt="more" />
-              </div>
-              
-            </div>
-
-            <div className="ticketCards">
-              {groupedTickets[groupKey].map((ticket) => (
-                <Card key={ticket.id} {...ticket} />
-              ))}
-            </div>
-          </div>
-        );
-      })}
+      {Object.keys(groupedTickets).map((groupKey) => (
+        <TicketGroup
+          key={groupKey}
+          groupKey={grouping === "priority" ? pri[groupKey] : groupKey}
+          tickets={groupedTickets[groupKey]}
+        />
+      ))}
     </div>
   );
 }
+
+const TicketGroup = React.memo(({ groupKey, tickets }) => (
+  <div className="ticketGroup">
+    <div className="ticketHead">
+      <h4>{groupKey} {tickets.length}</h4>
+      <div className="ticketImg">
+        <img src={plus} className="plus" alt="pls" />
+        <img src={dots} className="dots" alt="more" />
+      </div>
+    </div>
+    <div className="ticketCards">
+      {tickets.map(ticket => <Card key={ticket.id} {...ticket} />)}
+    </div>
+  </div>
+));

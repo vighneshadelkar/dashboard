@@ -5,3 +5,10 @@
     overflow-y: auto;
   }
   
+  @media (max-width: 786px){
+    main {
+        padding: 10px;
+        padding-top: 0px;
+        overflow-y: auto;
+      }
+  }
