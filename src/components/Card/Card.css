@@ -1,8 +1,9 @@
 .cardContainer{
     background-color: #FEFEFF;
-    padding: 20px;
-    width: 25%;
+    padding: 10px;
     border-radius: 5px;
+    font-size: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .cardWrapper{
@@ -10,6 +11,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 0px;
+    object-fit: contain;
 }
 .cardHeader{
     display: flex;
@@ -21,9 +24,7 @@
 .cardBody{
     width: 100%;
     align-items: center;
-
 }
-
 .box{
     display: flex;
 }

@@ -1,9 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Card from "./components/Card/Card";
 import Navbar from "./components/Navbar/Navbar";
+import { GroupingContext } from "./components/ContextApi/Context";
+import "./App.css";
 
 function App() {
-  const [first, setfirst] = useState([]);
+  const [tickets, setTickets] = useState([]);
+  const [users, setUsers] = useState([]);
+
+  const { grouping } = useContext(GroupingContext);
 
   async function fetchData() {
     try {
@@ -14,28 +19,61 @@ function App() {
       const data = await result.json();
 
       if (data) {
-        // console.log(data);
-        setfirst(data.tickets)
+        setTickets(data.tickets);
+        setUsers(data.users);
       }
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   }
+
   useEffect(() => {
     fetchData();
   }, []);
-  console.log(first[0])
+
+  const groupTickets = (groupBy) => {
+    return tickets.reduce((grouped, ticket) => {
+      const groupKey = ticket[groupBy] || "Other";
+      if (!grouped[groupKey]) {
+        grouped[groupKey] = [];
+      }
+      grouped[groupKey].push(ticket);
+      return grouped;
+    }, {});
+  };
+
+  const groupedTickets = grouping === "user"
+    ? groupTickets("userId")
+    : grouping === "priority"
+    ? groupTickets("priority")
+    : groupTickets("status");
+
   return (
     <div className="App">
       <header className="App-header">
         <Navbar />
       </header>
+
       <main>
-        {
-          first?.map((item)=>{
-            return  <Card key={item._id} {...item}></Card>
-          })
-        }
+        <div className="ticketGroups">
+          {Object.keys(groupedTickets).map((groupKey) => {
+            // Find the user by ID when grouping by user
+            const groupTitle = grouping === "user"
+              ? users.find((user) => user.id === groupKey)?.name || "Unknown User"
+              : groupKey;
+
+            return (
+              <div key={groupKey} className="ticketGroup">
+                <h3>{groupTitle}</h3>
+                <div className="ticketCards">
+                  {groupedTickets[groupKey].map((ticket) => (
+                    <Card key={ticket.id} {...ticket} />
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </main>
     </div>
   );
