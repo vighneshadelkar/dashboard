@@ -1,7 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Navbar.css";
 import { GroupingContext } from "../ContextApi/Context";
-import control from "../Images/control.png"
+import control from "../Images/control.png";
 
 export default function Navbar() {
   const { setGrouping } = useContext(GroupingContext);
@@ -11,7 +11,15 @@ export default function Navbar() {
     setIsOpen(!isOpen);
   };
 
+  useEffect(() => {
+    const savedGrouping = localStorage.getItem("userGrouping");
+    if (savedGrouping) {
+      setGrouping(savedGrouping);
+    }
+  }, [setGrouping]);
+  
   function onPrirorty(val) {
+    localStorage.setItem("userGrouping", val);
     setGrouping(val);
     setIsOpen(false);
   }
@@ -20,16 +28,16 @@ export default function Navbar() {
     <div className="navbarContainer">
       <div className="dropdown">
         <div className="displayDiv">
-        <img className="control" src={control} alt="ctrl" />
-        <button className="dropdown-button" onClick={toggleDropdown}>
-          Display
-        </button>
+          <img className="control" src={control} alt="ctrl" />
+          <button className="dropdown-button" onClick={toggleDropdown}>
+            Display
+          </button>
         </div>
-        
+
         {isOpen && (
           <div className="dropdown-menu">
             <div className="dropdown-item">
-            <p>Grouping</p>
+              <p>Grouping</p>
               <button onClick={() => onPrirorty("user")}>Users</button>
             </div>
             <div className="dropdown-item">
