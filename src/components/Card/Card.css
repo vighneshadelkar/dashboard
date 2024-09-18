@@ -58,6 +58,9 @@
 
 .cardTag{
     color: rgb(164,164,166);
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
 }
 
 .cardBottom{
@@ -78,4 +81,11 @@
     padding: 3px;
     border: 1px solid rgb(221, 221, 221);
     border-radius: 3px;
+}
+.circle{
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: rgb(206, 206, 206);
+    cursor: pointer;
 }

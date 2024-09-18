@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import "./Navbar.css";
 import { GroupingContext } from "../ContextApi/Context";
+import control from "../Images/control.png"
 
 export default function Navbar() {
   const { setGrouping } = useContext(GroupingContext);
@@ -18,9 +19,13 @@ export default function Navbar() {
   return (
     <div className="navbarContainer">
       <div className="dropdown">
+        <div className="displayDiv">
+        <img className="control" src={control} alt="ctrl" />
         <button className="dropdown-button" onClick={toggleDropdown}>
           Display
         </button>
+        </div>
+        
         {isOpen && (
           <div className="dropdown-menu">
             <div className="dropdown-item">
@@ -30,6 +35,10 @@ export default function Navbar() {
             <div className="dropdown-item">
               <p>Grouping</p>
               <button onClick={() => onPrirorty("priority")}>Priority</button>
+            </div>
+            <div className="dropdown-item">
+              <p>Grouping</p>
+              <button onClick={() => onPrirorty("status")}>Status</button>
             </div>
           </div>
         )}

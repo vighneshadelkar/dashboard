@@ -3,6 +3,7 @@ import { GroupingContext } from "../ContextApi/Context";
 import Card from "../Card/Card";
 import dots from "../Images/three.png"
 import "./Feed.css";
+import plus from "../Images/plus.png"
 
 export default function Feed() {
   const [tickets, setTickets] = useState([]);
@@ -77,9 +78,7 @@ export default function Feed() {
   return (
     <div className="ticketGroups">
       {Object.keys(groupedTickets).map((groupKey) => {
-        // For user grouping, groupKey is the user name
         const groupTitle = grouping === "user" ? groupKey : groupKey;
-        console.log(groupTitle);
 
         return (
           <div key={groupKey} className="ticketGroup">
@@ -89,7 +88,11 @@ export default function Feed() {
                 {grouping !== "priority" ? groupTitle : ""}{" "}
                 {groupedTickets[groupKey].length}
               </h4>
+              <div className="ticketImg">
+                <img src={plus} className="plus" alt="pls" />
               <img src={dots} className="dots" alt="more" />
+              </div>
+              
             </div>
 
             <div className="ticketCards">

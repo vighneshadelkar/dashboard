@@ -10,12 +10,18 @@
     position: relative;
     display: inline-block;
   }
-  
-  .dropdown-button {
+
+  .displayDiv{
+    display: flex;
+    align-items: center;
     border: 1px solid ;
     padding: 5px 10px;
     cursor: pointer;
     border-radius: 4px;
+  }
+  
+  .dropdown-button {
+    border: none;
     background-color: white;
   }
   
@@ -76,5 +82,11 @@
 
   .dropdown-item:last-child {
     border-bottom: none;
+  }
+
+  .control{
+    transform: rotate(90deg);
+    width: 15px;
+    height: 15px;
   }
   
