@@ -3,34 +3,23 @@
     display: flex;
     justify-content: flex-start;
     gap: 20px;
-    padding: 10px 0;
+    padding: 0px 0;
   }
   
   .ticketGroup {
-    width: 350px; /* Fixed width for each column */
+    width: 400px; /* Fixed width for each column */
     min-width: 100px;
-    background-color: white;
-    
   }
   
   .ticketCards {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding: 10px;
   }
   
-  .card {
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 10px;
-    background-color: #fff;
-  }
-  
-  .main {
-    padding: 20px;
-    background-color: #F5F5F8;
+  main {
+    padding: 80px;
+    padding-top: 0px;
     overflow-y: auto;
-
   }
   

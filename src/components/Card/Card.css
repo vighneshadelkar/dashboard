@@ -2,14 +2,16 @@
     background-color: #FEFEFF;
     padding: 10px;
     border-radius: 5px;
-    font-size: 10px;
+    font-size: 13px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    min-height: 100px;
+    row-gap: 0;
 }
 
 .cardWrapper{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     padding: 0px;
     object-fit: contain;
@@ -25,6 +27,32 @@
     width: 100%;
     align-items: center;
 }
+
 .box{
-    display: flex;
+    /* display: flex; */
+    font-weight: 600;
+    font-size: larger;
+    display: -webkit-box; 
+    -webkit-box-orient: vertical; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    -webkit-line-clamp: 2; 
+}
+
+.box p {
+
+    margin: 0;
+  }
+
+.cardId{
+    color: rgb(164,164,166);
+}
+
+.prfImg img{
+    width: 30px;
+    height: 30px;
+}
+
+.cardTag{
+    color: rgb(164,164,166);
 }

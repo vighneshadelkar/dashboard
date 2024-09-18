@@ -10,6 +10,14 @@ function App() {
 
   const { grouping } = useContext(GroupingContext);
 
+  const pri = {
+    0: "No priority",
+    1: "Low",
+    2: "Medium",
+    3: "High",
+    4: "Urgent",
+  };
+
   async function fetchData() {
     try {
       const result = await fetch(
@@ -32,21 +40,39 @@ function App() {
   }, []);
 
   const groupTickets = (groupBy) => {
-    return tickets.reduce((grouped, ticket) => {
-      const groupKey = ticket[groupBy] || "Other";
-      if (!grouped[groupKey]) {
-        grouped[groupKey] = [];
-      }
-      grouped[groupKey].push(ticket);
-      return grouped;
-    }, {});
+    if (groupBy === "user") {
+      const userMap = users.reduce((map, user) => {
+        map[user.id] = user.name;
+        return map;
+      }, {});
+
+      return tickets.reduce((grouped, ticket) => {
+        const userName = userMap[ticket.userId] || "Unknown User";
+        console.log(userName);
+        if (!grouped[userName]) {
+          grouped[userName] = [];
+        }
+        grouped[userName].push(ticket);
+        return grouped;
+      }, {});
+    } else {
+      return tickets.reduce((grouped, ticket) => {
+        const groupKey = ticket[groupBy] || 0;
+        if (!grouped[groupKey]) {
+          grouped[groupKey] = [];
+        }
+        grouped[groupKey].push(ticket);
+        return grouped;
+      }, {});
+    }
   };
 
-  const groupedTickets = grouping === "user"
-    ? groupTickets("userId")
-    : grouping === "priority"
-    ? groupTickets("priority")
-    : groupTickets("status");
+  const groupedTickets =
+    grouping === "user"
+      ? groupTickets("user")
+      : grouping === "priority"
+      ? groupTickets("priority")
+      : groupTickets("status");
 
   return (
     <div className="App">
@@ -57,14 +83,17 @@ function App() {
       <main>
         <div className="ticketGroups">
           {Object.keys(groupedTickets).map((groupKey) => {
-            // Find the user by ID when grouping by user
-            const groupTitle = grouping === "user"
-              ? users.find((user) => user.id === groupKey)?.name || "Unknown User"
-              : groupKey;
+            // For user grouping, groupKey is the user name
+            const groupTitle = grouping === "user" ? groupKey : groupKey;
+            console.log(groupTitle);
 
             return (
               <div key={groupKey} className="ticketGroup">
-                <h3>{groupTitle}</h3>
+                <h3>
+                  {grouping === "priority" ? pri[groupKey] : ""}
+                  {grouping !== "priority" ? groupTitle : ""}{" "}
+                  {groupedTickets[groupKey].length}
+                </h3>
                 <div className="ticketCards">
                   {groupedTickets[groupKey].map((ticket) => (
                     <Card key={ticket.id} {...ticket} />
@@ -78,5 +107,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
